@@ -1,1 +1,58 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-brand: #0d9588;
+  --color-muted: #9e9e9e;
+  --color-label: #b3b3b3;
+  --color-line: #595959;
+  --color-panel: #0b1313;
+  --color-panel-text: #bfd9d4;
+}
+
+/* Onboarding opening sequence: a line of light opens into the waveform,
+   the glow rises, then the content comes in one piece at a time. */
+@keyframes cine-open {
+  from { transform: scaleY(0.012); opacity: 0; }
+}
+@keyframes cine-glow {
+  from { opacity: 0; }
+}
+@keyframes cine-rise {
+  from { opacity: 0; transform: translateY(24px); }
+}
+
+.cine-open {
+  animation: cine-open 1.5s cubic-bezier(0.77, 0, 0.18, 1) 0.2s backwards;
+}
+.cine-glow {
+  animation: cine-glow 2.2s ease-out 0.4s backwards;
+}
+.cine-rise {
+  animation: cine-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  animation-delay: calc(1.1s + var(--i, 0) * 0.12s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cine-open, .cine-glow, .cine-rise { animation: none; }
+}
+
+/* Headset: constant gentle float, sound rings, pointer tilt. Never stops. */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50%      { transform: translateY(-14px) rotate(1.5deg); }
+}
+@keyframes ring {
+  from { transform: scale(0.7); opacity: 0.55; }
+  to   { transform: scale(1.9); opacity: 0; }
+}
+.float { animation: float 6s ease-in-out infinite; }
+.ring  { animation: ring 3.9s ease-out infinite; }
+.tilt {
+  transform: perspective(800px) rotateY(calc(var(--ry, 0) * 10deg)) rotateX(calc(var(--rx, 0) * -8deg));
+  transition: transform 0.25s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .float { animation-duration: 12s; }
+  .ring  { animation-duration: 7s; }
+}

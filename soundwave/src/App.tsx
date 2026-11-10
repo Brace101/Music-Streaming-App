@@ -1,7 +1,12 @@
+import { Routes, Route, Navigate } from 'react-router-dom'
+import Onboarding from './pages/Onboarding'
+
 export default function App() {
   return (
-    <div className="flex h-screen items-center justify-center bg-zinc-900">
-      <h1 className="text-3xl font-bold text-purple-500">Sound wave</h1>
-    </div>
+    <Routes>
+      {/* Temporary: send "/" to onboarding until Home and auth exist */}
+      <Route path="/" element={<Navigate to="/onboarding" replace />} />
+      <Route path="/onboarding" element={<Onboarding />} />
+    </Routes>
   )
 }
